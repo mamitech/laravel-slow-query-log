@@ -8,5 +8,17 @@
         "psr-4": {
             "Vynhart\\SlowQueryLog\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vynhart\\SlowQueryLog\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Vynhart\\SlowQueryLog\\ServiceProvider"
+            ]
+        }
     }
 }

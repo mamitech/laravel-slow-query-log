@@ -1,10 +1,7 @@
 <?php
+namespace Vynhart\SlowQueryLog\Tests;
 
-namespace Vynhart\LaravelSlowQueryLog\Tests;
-
-use Orchestra\Testbench\TestCase;
 use Illuminate\Database\Schema\Blueprint;
-
 
 class ServiceProviderTest extends TestCase
 {
@@ -22,7 +19,7 @@ class ServiceProviderTest extends TestCase
     }
 
     /** @test */
-    public function it_logs_the_query()
+    public function it_logs_to_file()
     {
         $this->app['router']->get('hi', function () {
             \Schema::create('users', function (Blueprint $table) {
@@ -39,19 +36,6 @@ class ServiceProviderTest extends TestCase
 
         $lineCount = count(file($this->getFilePath()));
         $this->assertGreaterThanOrEqual(1, $lineCount);
-    }
-
-    private function getFilePath()
-    {
-        $fname = 'slow-query-' . date('Y-m-d');
-        return storage_path('logs/' . $fname);
-    }
-
-    protected function getPackageProviders($_)
-    {
-        return [
-            'Vynhart\SlowQueryLog\ServiceProvider'
-        ];
     }
 
     protected function defineEnvironment($app)
