@@ -20,5 +20,6 @@
                 "Vynhart\\SlowQueryLog\\ServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
