@@ -2,4 +2,5 @@
 
 return [
     'enabled' => (bool) env('SLOW_QUERY_LOG_ENABLED', false),
+    'min-threshold' => (int) env('SLOW_QUERY_MIN_THRESHOLD', 1) # in millisecond
 ];

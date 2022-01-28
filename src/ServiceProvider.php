@@ -20,6 +20,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         }
     }
 
+    public function register()
+    {
+        $this->app->singleton(Logger::class);
+    }
+
     private function setConfig()
     {
         $confPath = __DIR__ . '/../config/' . self::ConfigName . '.php';
@@ -41,10 +46,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $conn = $this->app->make(Connection::class);
         $conn->enableQueryLog();
-        $conn->listen(function (QueryExecuted $query) {
-            $fname = 'slow-query-' . date('Y-m-d');
-            $file = fopen(storage_path('logs/' . $fname), 'a');
-            fwrite($file, $query->sql . "\n");
+        $logger = $this->app->make(Logger::class);
+        $conn->listen(function (QueryExecuted $query) use ($logger) {
+            if ($query->time < $this->config['slow-query-log.min-threshold']) {
+                return;
+            }
+            $logger->log($query);
         });
     }
 }

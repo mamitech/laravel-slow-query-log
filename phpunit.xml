@@ -21,6 +21,7 @@
     </filter>
     <php>
         <env name="SLOW_QUERY_LOG_ENABLED" value="true"/>
+        <env name="SLOW_QUERY_MIN_THRESHOLD" value="0"/>
         <env name="DB_CONNECTION" value="testing"/>
     </php>
 </phpunit>

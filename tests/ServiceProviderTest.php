@@ -6,10 +6,10 @@ use Orchestra\Testbench\TestCase;
 use Illuminate\Database\Schema\Blueprint;
 
 
-class QueryLogTest extends TestCase
+class ServiceProviderTest extends TestCase
 {
     /** @test */
-    public function it_spawns_the_directory()
+    public function it_spawns_the_logs_directory()
     {
         $this->app['router']->get('hi', function () {
             return 'hi there';
@@ -22,7 +22,7 @@ class QueryLogTest extends TestCase
     }
 
     /** @test */
-    public function it_log_the_query()
+    public function it_logs_the_query()
     {
         $this->app['router']->get('hi', function () {
             \Schema::create('users', function (Blueprint $table) {
@@ -39,12 +39,6 @@ class QueryLogTest extends TestCase
 
         $lineCount = count(file($this->getFilePath()));
         $this->assertGreaterThanOrEqual(1, $lineCount);
-    }
-
-    /** test */
-    public function query_is_json_formatted()
-    {
-        # todo.
     }
 
     private function getFilePath()
