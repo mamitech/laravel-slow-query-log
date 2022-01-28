@@ -1,0 +1,12 @@
+{
+    "name": "vynhart/laravel-slow-query-log",
+    "require": {
+        "php": ">=7.1",
+        "illuminate/support": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vynhart\\SlowQueryLog\\": "src/"
+        }
+    }
+}
