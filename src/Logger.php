@@ -20,6 +20,10 @@ class Logger
                 return true;
             }
 
+            if(empty($trace)) {
+                return false;
+            }
+
             return str_contains($trace['file'], $traceOnly);
         });
 
