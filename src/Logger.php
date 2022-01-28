@@ -20,7 +20,7 @@ class Logger
                 return true;
             }
 
-            if(empty($trace)) {
+            if(empty($trace['file'])) {
                 return false;
             }
 
