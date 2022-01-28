@@ -1,8 +1,6 @@
 <?php
 namespace Vynhart\SlowQueryLog\Tests;
 
-use Illuminate\Database\Schema\Blueprint;
-
 class ServiceProviderTest extends TestCase
 {
     /** @test */
@@ -22,11 +20,7 @@ class ServiceProviderTest extends TestCase
     public function it_logs_to_file()
     {
         $this->app['router']->get('hi', function () {
-            \Schema::create('users', function (Blueprint $table) {
-                $table->increments('id');
-            });
-
-            \DB::table('users')->first();
+            \DB::table('notes')->first();
 
             return 'hi there';
         });

@@ -2,13 +2,14 @@
 namespace Vynhart\SlowQueryLog\Tests;
 
 use Orchestra\Testbench\TestCase as BenchTestCase;
+use Illuminate\Database\Schema\Blueprint;
+use Vynhart\SlowQueryLog\Logger;
 
-class TestCase extends BenchTestCase
+abstract class TestCase extends BenchTestCase
 {
     protected function getFilePath()
     {
-        $fname = 'slow-query-' . date('Y-m-d');
-        return storage_path('logs/' . $fname);
+        return (new Logger)->getFilePath();
     }
 
     protected function getPackageProviders($_)
@@ -18,4 +19,12 @@ class TestCase extends BenchTestCase
         ];
     }
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        \Schema::create('notes', function (Blueprint $table) {
+            $table->increments('id');
+            $table->text('content');
+        });
+    }
 }

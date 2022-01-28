@@ -40,6 +40,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         if (!file_exists(storage_path('logs'))) {
             mkdir(storage_path('logs'), 0755, true);
         }
+
+        $logger = $this->app->make(Logger::class);
+        if (!file_exists($logger->getFilePath())) {
+            touch($logger->getFilePath());
+        }
     }
 
     private function setListener()
@@ -48,9 +53,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $conn->enableQueryLog();
         $logger = $this->app->make(Logger::class);
         $conn->listen(function (QueryExecuted $query) use ($logger) {
-            if ($query->time < $this->config['slow-query-log.min-threshold']) {
-                return;
-            }
             $logger->log($query);
         });
     }
