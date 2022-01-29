@@ -17,6 +17,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         if ($this->config['slow-query-log.enabled'] === true) {
             $this->checkLogDir();
             $this->setListener();
+            $this->setRoute();
+            $this->loadViews();
         }
     }
 
@@ -55,5 +57,15 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $conn->listen(function (QueryExecuted $query) use ($logger) {
             $logger->log($query);
         });
+    }
+
+    private function setRoute()
+    {
+        $this->loadRoutesFrom(__DIR__.'/../routes.php');
+    }
+
+    private function loadViews()
+    {
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'slow-query-log');
     }
 }

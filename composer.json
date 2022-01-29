@@ -6,7 +6,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Vynhart\\SlowQueryLog\\": "src/"
+            "Vynhart\\SlowQueryLog\\": "src/",
+            "Vynhart\\SlowQueryLog\\Controllers\\": "src/Http/Controllers"
         }
     },
     "autoload-dev": {
