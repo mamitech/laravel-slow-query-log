@@ -15,16 +15,23 @@ class Logger
         }
         $file = fopen($this->getFilePath(), 'a');
         $traces = array_filter(debug_backtrace(), function($trace) use ($config) {
-            $traceOnly = $config['slow-query-log.trace-only'];
-            if(empty($traceOnly)) {
-                return true;
-            }
-
             if(empty($trace['file'])) {
                 return false;
             }
 
-            return str_contains($trace['file'], $traceOnly);
+            $traceIt = true;
+
+            $traceOnly = $config['slow-query-log.trace-only'];
+            if (!empty($traceOnly)) {
+                $traceIt = str_contains($trace['file'], $traceOnly);
+            }
+
+            $traceExclude = $config['slow-query-log.trace-only'];
+            if ($traceIt && !empty($traceExclude)) {
+                $traceIt = !str_contains($trace['file'], $traceOnly);
+            }
+
+            return $traceIt;
         });
 
         $path = \Request::path();
