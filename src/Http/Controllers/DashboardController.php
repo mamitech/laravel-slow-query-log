@@ -18,7 +18,7 @@ class DashboardController extends BaseController
                 return json_decode($row);
             })->filter(function($row) {
                 return !empty($row) && !empty($row->traces);
-            });
+            })->sortByDesc('time');
         }
         return view('slow-query-log::dashboard', ['data' => $data]);
     }
