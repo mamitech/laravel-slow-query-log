@@ -52,7 +52,8 @@
     <h1>Slow Queries</h1>
     @foreach ($data as $row)
     <button class='collapsible'>
-        <strong>{{ $row->time }}ms</strong> - {{ $row->path }} - {{ $row->sql }}
+        <strong>{{ $row->time }}ms</strong> - {{ $row->path }} <br>
+        {{ $row->sql }}
     </button>
     <div class='content'>
         <dl>
