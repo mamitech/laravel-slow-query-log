@@ -48,7 +48,7 @@
     <h1>Hello there Im good as well</h1>
     @foreach ($data as $row)
     <button class='collapsible'>
-        {{ $row->time }}ms - {{ $row->path }}
+        {{ $row->time }}ms - {{ $row->path }} - {{ $row->sql }}
     </button>
     <div class='content'>
         <dl>
