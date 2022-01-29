@@ -4,10 +4,14 @@
     <title>
         Slow Queries
     </title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
     <style>
+        h1 {
+            margin: 30px auto;
+        }
         .collapsible {
-            background-color: #777;
-            color: white;
+            background-color: #ffccdd;
+            color: rgb(77, 69, 63);
             cursor: pointer;
             padding: 18px;
             width: 100%;
@@ -19,7 +23,7 @@
 
         .active,
         .collapsible:hover {
-            background-color: #555;
+            background-color: #ffccdd;
         }
 
         .collapsible:after {
@@ -45,10 +49,10 @@
 </head>
 
 <body>
-    <h1>Slow Query Logged List</h1>
+    <h1>Slow Queries</h1>
     @foreach ($data as $row)
     <button class='collapsible'>
-        {{ $row->time }}ms - {{ $row->path }} - {{ $row->sql }}
+        <strong>{{ $row->time }}ms</strong> - {{ $row->path }} - {{ $row->sql }}
     </button>
     <div class='content'>
         <dl>
