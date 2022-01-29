@@ -64,12 +64,12 @@
     <h1>Slow Queries</h1>
     @foreach ($data as $row)
     <button class='collapsible'>
-        <strong>{{ $row->time }}ms</strong> - {{ $row->path }} <br>
+        <strong>{{ $row->time }}ms</strong> - {{ $row->path }}
+    </button>
+    <div class='content'>
         <code>
             {{ $row->sql }}
         </code>
-    </button>
-    <div class='content'>
         <dl>
             @foreach($row->traces as $trace)
             <dt>{{ $trace->function }}</dt>
