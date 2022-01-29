@@ -62,22 +62,46 @@
 
 <body>
     <h1>Slow Queries</h1>
-    @foreach ($data as $row)
     <button class='collapsible'>
-        <strong>{{ $row->time }}ms</strong> - {{ $row->path }} <br>
+        <strong>320ms</strong> - garuda/list <br>
         <code>
-            {{ $row->sql }}
+            select DATEDIFF(end_time, NOW()) AS end_date_diff, flash_sale.* from `flash_sale` where `is_active` = ? and `name` != ? and `start_time` < ? and `end_time` > ? and `flash_sale`.`deleted_at` is null and 
+true /* -- file: app/Http/Controllers/Api/FlashSale/FlashSaleController.php, line: 135; */
+ order by abs( end_date_diff ) asc limit 1
         </code>
     </button>
     <div class='content'>
         <dl>
-            @foreach($row->traces as $trace)
-            <dt>{{ $trace->function }}</dt>
-            <dd>{{ $trace->file }} : <b>{{ $trace->line }}</b></dd>
-            @endforeach
+            <dt>get</dt>
+            <dd>/resources/views/sample.html : <b>266</b></dd>
+            <dt>fetch</dt>
+            <dd>/resources/views/sample.html : <b>112</b></dd>
+            <dt>sendToYourMom</dt>
+            <dd>/resources/views/sample.html : <b>30</b></dd>
+            <dt>dontCry</dt>
+            <dd>/resources/views/sample.html : <b>5</b></dd>
         </dl>
     </div>
-    @endforeach
+    <button class='collapsible'>
+        <strong>168ms</strong> - garuda/list <br>
+        <code>
+            select DATEDIFF(end_time, NOW()) AS end_date_diff, flash_sale.* from `flash_sale` where `is_active` = ? and `name` != ? and `start_time` < ? and `end_time` > ? and `flash_sale`.`deleted_at` is null and 
+true /* -- file: app/Http/Controllers/Api/FlashSale/FlashSaleController.php, line: 135; */
+ order by abs( end_date_diff ) asc limit 1
+        </code>
+    </button>
+    <div class='content'>
+        <dl>
+            <dt>get</dt>
+            <dd>/resources/views/sample.html : <b>266</b></dd>
+            <dt>fetch</dt>
+            <dd>/resources/views/sample.html : <b>112</b></dd>
+            <dt>sendToYourMom</dt>
+            <dd>/resources/views/sample.html : <b>30</b></dd>
+            <dt>dontCry</dt>
+            <dd>/resources/views/sample.html : <b>5</b></dd>
+        </dl>
+    </div>
 
     <script>
         var coll = document.getElementsByClassName("collapsible");
