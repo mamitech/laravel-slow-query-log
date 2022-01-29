@@ -8,7 +8,19 @@ class DashboardController extends BaseController
 {
     public function index()
     {
-        file_get_contents(app()->make(Logger::class)->getFilePath());
-        return view('slow-query-log::dashboard');
+        $filePath = app()->make(Logger::class)->getFilePath();
+        $data = [];
+        if (file_exists($filePath)) {
+            $data = collect(explode(
+                Logger::Separator,
+                file_get_contents($filePath)
+            ))->map(function($row) {
+                return json_decode($row);
+            });
+        }
+        foreach ($data as $row) {
+            echo $row->time;
+        }
+        return view('slow-query-log::dashboard', ['data' => $data]);
     }
 }
