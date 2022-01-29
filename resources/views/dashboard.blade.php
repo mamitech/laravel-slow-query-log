@@ -45,7 +45,7 @@
 </head>
 
 <body>
-    <h1>Hello there Im good as well</h1>
+    <h1>Slow Query Logged List</h1>
     @foreach ($data as $row)
     <button class='collapsible'>
         {{ $row->time }}ms - {{ $row->path }} - {{ $row->sql }}

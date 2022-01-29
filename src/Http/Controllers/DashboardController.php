@@ -17,7 +17,7 @@ class DashboardController extends BaseController
             ))->map(function($row) {
                 return json_decode($row);;
             })->filter(function($row) {
-                return !empty($row);
+                return !empty($row) && !empty($row->traces);
             });
         }
         foreach ($data as $row) {
