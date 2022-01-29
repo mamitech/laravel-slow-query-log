@@ -28,7 +28,7 @@ class Logger
 
             $traceExclude = $config['slow-query-log.trace-exclude'];
             if ($traceIt && !empty($traceExclude)) {
-                $traceIt = !str_contains($trace['file'], $traceOnly);
+                $traceIt = !str_contains($trace['file'], $traceExclude);
             }
 
             return $traceIt;

@@ -15,13 +15,10 @@ class DashboardController extends BaseController
                 Logger::Separator,
                 file_get_contents($filePath)
             ))->map(function($row) {
-                return json_decode($row);;
+                return json_decode($row);
             })->filter(function($row) {
                 return !empty($row) && !empty($row->traces);
             });
-        }
-        foreach ($data as $row) {
-            $row->time;
         }
         return view('slow-query-log::dashboard', ['data' => $data]);
     }
