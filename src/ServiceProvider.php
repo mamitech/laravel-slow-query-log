@@ -14,17 +14,19 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function boot()
     {
         $this->setConfig();
-        if ($this->config['slow-query-log.enabled'] === true) {
-            $this->checkLogDir();
-            $this->setListener();
-            $this->setRoute();
-            $this->loadViews();
+        if ($this->config['slow-query-log.enabled'] !== true) {
+            return;
         }
+
+        $this->installLogFile();
+        $this->setQueryListener();
+        $this->setDashboard();
     }
 
     public function register()
     {
         $this->app->singleton(Logger::class);
+        $this->app->bind(FileInstaller::class);
     }
 
     private function setConfig()
@@ -37,35 +39,25 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->config = $this->app['config'];
     }
 
-    private function checkLogDir()
+    private function installLogFile()
     {
-        if (!file_exists(storage_path('logs'))) {
-            mkdir(storage_path('logs'), 0755, true);
-        }
-
-        $logger = $this->app->make(Logger::class);
-        if (!file_exists($logger->getFilePath())) {
-            touch($logger->getFilePath());
-        }
+        (new FileInstaller($this->app))->installLogFile();
     }
 
-    private function setListener()
+    private function setQueryListener()
     {
         $conn = $this->app->make(Connection::class);
         $conn->enableQueryLog();
+
         $logger = $this->app->make(Logger::class);
         $conn->listen(function (QueryExecuted $query) use ($logger) {
             $logger->log($query);
         });
     }
 
-    private function setRoute()
+    private function setDashboard()
     {
         $this->loadRoutesFrom(__DIR__.'/../routes.php');
-    }
-
-    private function loadViews()
-    {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'slow-query-log');
     }
 }
