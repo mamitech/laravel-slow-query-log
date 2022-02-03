@@ -7,14 +7,36 @@ use Illuminate\Support\Facades\Route;
 class Logger
 {
     const Separator = '<<!=!>>';
+
     public function log(QueryExecuted $query)
     {
-        $config = app()->config;
-        if ($query->time < $config['slow-query-log.min-threshold']) {
+        if ($this->isBelowThreshold($query->time)) {
             return;
         }
-        $file = fopen($this->getFilePath(), 'a');
-        $traces = array_filter(debug_backtrace(), function($trace) use ($config) {
+
+        $data = [
+            'time' => $query->time,
+            'sql' => $query->sql,
+            'path' => \Request::path(),
+            'traces' => $this->getCallTraces()
+        ];
+
+        fwrite(
+            fopen($this->getFilePath(), 'a'),
+            json_encode($data) . self::Separator
+        );
+    }
+
+    private function isBelowThreshold($time)
+    {
+        $config = app()->config;
+        return $time < $config['slow-query-log.min-threshold'];
+    }
+
+    private function getCallTraces()
+    {
+        $config = app()->config;
+        return array_filter(debug_backtrace(), function($trace) use ($config) {
             if(empty($trace['file'])) {
                 return false;
             }
@@ -33,17 +55,6 @@ class Logger
 
             return $traceIt;
         });
-
-        $path = \Request::path();
-
-        $data = [
-            'time' => $query->time,
-            'sql' => $query->sql,
-            'path' => $path,
-            'traces' => $traces
-        ];
-
-        fwrite($file, json_encode($data) . self::Separator);
     }
 
     public function getFilePath()
