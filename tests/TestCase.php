@@ -22,6 +22,7 @@ abstract class TestCase extends BenchTestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         \Schema::create('notes', function (Blueprint $table) {
             $table->increments('id');
             $table->text('content');
