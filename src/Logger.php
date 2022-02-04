@@ -21,10 +21,8 @@ class Logger
             'traces' => $this->getCallTraces()
         ];
 
-        fwrite(
-            fopen($this->getFilePath(), 'a'),
-            json_encode($data) . self::Separator
-        );
+        $logFile = new LogFile;
+        $logFile->append(json_encode($data) . self::Separator);
     }
 
     private function isBelowThreshold($time)
@@ -57,9 +55,4 @@ class Logger
         });
     }
 
-    public function getFilePath()
-    {
-        $fname = 'slow-query-' . date('Y-m-d');
-        return storage_path('logs/' . $fname);
-    }
 }

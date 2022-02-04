@@ -3,12 +3,13 @@ namespace Vynhart\SlowQueryLog\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 use Vynhart\SlowQueryLog\Logger;
+use Vynhart\SlowQueryLog\LogFile;
 
 class DashboardController extends BaseController
 {
     public function index()
     {
-        $filePath = app()->make(Logger::class)->getFilePath();
+        $filePath = (new LogFile)->getFilePath();
         $data = [];
         if (file_exists($filePath)) {
             $data = collect(explode(

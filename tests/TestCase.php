@@ -3,13 +3,13 @@ namespace Vynhart\SlowQueryLog\Tests;
 
 use Orchestra\Testbench\TestCase as BenchTestCase;
 use Illuminate\Database\Schema\Blueprint;
-use Vynhart\SlowQueryLog\Logger;
+use Vynhart\SlowQueryLog\LogFile;
 
 abstract class TestCase extends BenchTestCase
 {
     protected function getFilePath()
     {
-        return (new Logger)->getFilePath();
+        return (new LogFile)->getFilePath();
     }
 
     protected function getPackageProviders($_)
