@@ -13,16 +13,17 @@ class CreateLaravelSlowQueryLogTable extends Migration
         Schema::create(self::TableName, function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('time');
+            $table->string('app_env');
+            $table->string('path');
             $table->text('sql');
-            $table->text('path');
             $table->text('traces');
             $table->timestampTz('created_at');
         });
 
         Schema::table(self::TableName, function (Blueprint $table) {
-            $table->index('time');
-            $table->index('path');
-            $table->index('created_at');
+            $table->index(['app_env', 'time']);
+            $table->index(['created_at', 'app_env']);
+            $table->index(['path', 'app_env']);
         });
     }
 

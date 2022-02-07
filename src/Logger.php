@@ -42,7 +42,14 @@ class Logger
 
     private function logToDb($data)
     {
+        if (strpos($data['sql'], 'laravel_slow_query_log') !== false) {
+            # if this is a slow query coming from the write operation of
+            # slow query log, then just skip it to avoid infinite loop
+            return;
+        }
+
         $slowQ = new SlowQuery;
+        $slowQ->app_env = app()->config['app.env'];
         $slowQ->time = $data['time'];
         $slowQ->sql = $data['sql'];
         $slowQ->path = $data['path'];
@@ -61,7 +68,7 @@ class Logger
     private function getCallTraces()
     {
         $config = app()->config;
-        return array_filter(debug_backtrace(), function ($trace) use ($config) {
+        $filteredTraces = array_filter(debug_backtrace(), function ($trace) use ($config) {
             if (empty($trace['file'])) {
                 return false;
             }
@@ -80,5 +87,14 @@ class Logger
 
             return $traceIt;
         });
+        $compactedTraces = [];
+        foreach ($filteredTraces as $trace) {
+            $compactedTraces[] = [
+                'file' => $trace['file'],
+                'function' => $trace['function'],
+                'line' => $trace['line'],
+            ];
+        }
+        return $compactedTraces;
     }
 }
