@@ -1,8 +1,9 @@
 <?php
+
 namespace Vynhart\SlowQueryLog;
 
 use Illuminate\Database\Events\QueryExecuted;
-use Illuminate\Support\Facades\Route;
+use Vynhart\SlowQueryLog\Models\SlowQuery;
 
 class Logger
 {
@@ -38,9 +39,15 @@ class Logger
         return app()->config['slow-query-log.log-to-db'] === true;
     }
 
-    private function logToDb()
+    private function logToDb($data)
     {
-        # todo
+        $slowQ = new SlowQuery;
+        $slowQ->time = $data['time'];
+        $slowQ->sql = $data['sql'];
+        $slowQ->path = $data['path'];
+        $slowQ->traces = $data['traces'];
+
+        $slowQ->save();
     }
 
     private function logToFile($data)
@@ -52,8 +59,8 @@ class Logger
     private function getCallTraces()
     {
         $config = app()->config;
-        return array_filter(debug_backtrace(), function($trace) use ($config) {
-            if(empty($trace['file'])) {
+        return array_filter(debug_backtrace(), function ($trace) use ($config) {
+            if (empty($trace['file'])) {
                 return false;
             }
 
@@ -72,5 +79,4 @@ class Logger
             return $traceIt;
         });
     }
-
 }

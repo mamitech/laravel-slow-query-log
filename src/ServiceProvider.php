@@ -52,7 +52,21 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             return;
         }
 
-        $this->loadMigrationsFrom(__DIR__ . '/../database/create_laravel_slow_query_log_table.php');
+        $files = $this->getAllMigrationFiles();
+        $this->loadMigrationsFrom($files);
+    }
+
+    private function getAllMigrationFiles(): array
+    {
+        $files = [];
+        foreach (
+            array_diff(
+                scandir(__DIR__ . '/../database'), ['..', '.']
+            ) as $fileName
+        ) {
+            $files[] = __DIR__ . '/../database/' . $fileName;
+        }
+        return $files;
     }
 
     private function setQueryListener()
