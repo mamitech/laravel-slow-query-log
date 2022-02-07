@@ -11,6 +11,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     private $config;
 
+    public function register()
+    {
+        $this->app->singleton(Logger::class);
+    }
+
     public function boot()
     {
         $this->setConfig();
@@ -18,15 +23,10 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             return;
         }
 
-        $this->installLogFile();
+        $this->installDir();
+        $this->setMigration();
         $this->setQueryListener();
         $this->setDashboard();
-    }
-
-    public function register()
-    {
-        $this->app->singleton(Logger::class);
-        $this->app->bind(FileInstaller::class);
     }
 
     private function setConfig()
@@ -39,9 +39,20 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->config = $this->app['config'];
     }
 
-    private function installLogFile()
+    private function installDir()
     {
-        (new FileInstaller($this->app))->installLogFile();
+        (new FileInstaller($this->app))->installDir();
+    }
+
+    private function setMigration()
+    {
+        # only set migration if the config is set to use
+        #   database to log
+        if (!$this->config['slow-query-log.storage'] == 'database'){
+            return;
+        }
+
+        $this->loadMigrationsFrom(__DIR__ . '/../database/create_laravel_slow_query_log_table.php');
     }
 
     private function setQueryListener()

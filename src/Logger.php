@@ -21,14 +21,32 @@ class Logger
             'traces' => $this->getCallTraces()
         ];
 
-        $logFile = new LogFile;
-        $logFile->append(json_encode($data) . self::Separator);
+        if ($this->isLogToDb()) {
+            return $this->logToDb($data);
+        }
+
+        $this->logToFile($data);
     }
 
     private function isBelowThreshold($time)
     {
-        $config = app()->config;
-        return $time < $config['slow-query-log.min-threshold'];
+        return $time < app()->config['slow-query-log.min-threshold'];
+    }
+
+    private function isLogToDb()
+    {
+        return app()->config['slow-query-log.log-to-db'] === true;
+    }
+
+    private function logToDb()
+    {
+        # todo
+    }
+
+    private function logToFile($data)
+    {
+        $logFile = new LogFile;
+        $logFile->append(json_encode($data) . self::Separator);
     }
 
     private function getCallTraces()

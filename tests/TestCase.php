@@ -27,5 +27,23 @@ abstract class TestCase extends BenchTestCase
             $table->increments('id');
             $table->text('content');
         });
+
+        $this->app['router']->get('hi', function () {
+            return 'hi there';
+        });
+    }
+
+    protected function defineEnvironment($app)
+    {
+        $config = $app['config'];
+        $config->set('database.default', 'testing');
+        $config->set(
+            'database.connections.testing',
+            [
+                'driver'   => 'sqlite',
+                'database' => ':memory:',
+                'prefix'   => '',
+            ]
+        );
     }
 }
