@@ -45,5 +45,6 @@ abstract class TestCase extends BenchTestCase
                 'prefix'   => '',
             ]
         );
+        $app['config']->set('slow-query-log.min-threshold', 100);
     }
 }

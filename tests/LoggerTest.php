@@ -42,9 +42,4 @@ class LoggerTest extends TestCase
         $this->query = \Mockery::mock(QueryExecuted::class);
         $this->logger = new Logger;
     }
-
-    protected function defineEnvironment($app)
-    {
-        $app['config']->set('slow-query-log.min-threshold', 100);
-    }
 }

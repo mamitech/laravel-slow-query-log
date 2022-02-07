@@ -2,6 +2,7 @@
 
 namespace Vynhart\SlowQueryLog;
 
+use Carbon\Carbon;
 use Illuminate\Database\Events\QueryExecuted;
 use Vynhart\SlowQueryLog\Models\SlowQuery;
 
@@ -36,7 +37,7 @@ class Logger
 
     private function isLogToDb()
     {
-        return app()->config['slow-query-log.log-to-db'] === true;
+        return app()->config['slow-query-log.storage'] === 'database';
     }
 
     private function logToDb($data)
@@ -45,7 +46,8 @@ class Logger
         $slowQ->time = $data['time'];
         $slowQ->sql = $data['sql'];
         $slowQ->path = $data['path'];
-        $slowQ->traces = $data['traces'];
+        $slowQ->traces = json_encode($data['traces']);
+        $slowQ->created_at = Carbon::now();
 
         $slowQ->save();
     }
