@@ -45,7 +45,7 @@ class Logger
     }
 
     private function logToChannel($data) {
-        $log = Log::channel(app()->config['slow-query-log.storage.log-channel']);
+        $log = Log::channel(app()->config['slow-query-log.log-channel']);
         $log->info(json_encode($data));
     }
 
