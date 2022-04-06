@@ -21,6 +21,7 @@ class Logger
             'time' => $query->time,
             'sql' => $query->sql,
             'path' => \Request::path(),
+            'action' => \Request::route()->getActionName(),
             'traces' => $this->getCallTraces()
         ];
 
