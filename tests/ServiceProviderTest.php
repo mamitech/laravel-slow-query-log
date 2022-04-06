@@ -1,7 +1,7 @@
 <?php
-namespace Vynhart\SlowQueryLog\Tests;
+namespace Mamitech\SlowQueryLog\Tests;
 
-use Vynhart\SlowQueryLog\LogFile;
+use Mamitech\SlowQueryLog\LogFile;
 
 class ServiceProviderTest extends TestCase
 {

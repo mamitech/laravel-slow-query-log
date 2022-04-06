@@ -1,11 +1,11 @@
 <?php
 
-namespace Vynhart\SlowQueryLog;
+namespace Mamitech\SlowQueryLog;
 
 use Carbon\Carbon;
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Support\Facades\Log;
-use Vynhart\SlowQueryLog\Models\SlowQuery;
+use Mamitech\SlowQueryLog\Models\SlowQuery;
 
 class Logger
 {

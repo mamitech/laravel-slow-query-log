@@ -1,26 +1,29 @@
 {
-    "name": "vynhart/laravel-slow-query-log",
+    "name": "mamitech/laravel-slow-query-log",
     "require": {
         "php": ">=7.1",
         "illuminate/support": ">=5.4.0"
     },
     "autoload": {
         "psr-4": {
-            "Vynhart\\SlowQueryLog\\": "src/",
-            "Vynhart\\SlowQueryLog\\Controllers\\": "src/Http/Controllers"
+            "Mamitech\\SlowQueryLog\\": "src/",
+            "Mamitech\\SlowQueryLog\\Controllers\\": "src/Http/Controllers"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Vynhart\\SlowQueryLog\\Tests\\": "tests/"
+            "Mamitech\\SlowQueryLog\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Vynhart\\SlowQueryLog\\ServiceProvider"
+                "Mamitech\\SlowQueryLog\\ServiceProvider"
             ]
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "require-dev": {
+        "orchestra/testbench": "5.x-dev"
+    }
 }

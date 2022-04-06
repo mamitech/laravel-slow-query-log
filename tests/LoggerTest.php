@@ -1,9 +1,9 @@
 <?php
 
-namespace Vynhart\SlowQueryLog\Tests;
+namespace Mamitech\SlowQueryLog\Tests;
 
 use Illuminate\Database\Events\QueryExecuted;
-use Vynhart\SlowQueryLog\Logger;
+use Mamitech\SlowQueryLog\Logger;
 
 class LoggerTest extends TestCase
 {

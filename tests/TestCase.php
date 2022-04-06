@@ -1,9 +1,9 @@
 <?php
-namespace Vynhart\SlowQueryLog\Tests;
+namespace Mamitech\SlowQueryLog\Tests;
 
 use Orchestra\Testbench\TestCase as BenchTestCase;
 use Illuminate\Database\Schema\Blueprint;
-use Vynhart\SlowQueryLog\LogFile;
+use Mamitech\SlowQueryLog\LogFile;
 
 abstract class TestCase extends BenchTestCase
 {
@@ -15,7 +15,7 @@ abstract class TestCase extends BenchTestCase
     protected function getPackageProviders($_)
     {
         return [
-            'Vynhart\SlowQueryLog\ServiceProvider'
+            'Mamitech\SlowQueryLog\ServiceProvider'
         ];
     }
 

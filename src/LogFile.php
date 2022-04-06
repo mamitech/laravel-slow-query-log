@@ -1,6 +1,6 @@
 <?php
 
-namespace Vynhart\SlowQueryLog;
+namespace Mamitech\SlowQueryLog;
 
 class LogFile
 {

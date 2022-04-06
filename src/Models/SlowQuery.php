@@ -1,5 +1,5 @@
 <?php
-namespace Vynhart\SlowQueryLog\Models;
+namespace Mamitech\SlowQueryLog\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

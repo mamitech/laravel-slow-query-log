@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a6e28c746673fe5b713ee54fc841718",
+    "content-hash": "f14ae695fff6d58d52b0d1272c7ad017",
     "packages": [
         {
             "name": "brick/math",
@@ -4002,7 +4002,7 @@
         },
         {
             "name": "orchestra/testbench",
-            "version": "v5.20.0",
+            "version": "5.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench.git",
@@ -4048,6 +4048,10 @@
                 "orchestral",
                 "testing"
             ],
+            "support": {
+                "issues": "https://github.com/orchestral/testbench/issues",
+                "source": "https://github.com/orchestral/testbench/tree/5.x"
+            },
             "funding": [
                 {
                     "url": "https://paypal.me/crynobone",
@@ -5680,13 +5684,15 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "orchestra/testbench": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.2.0"
 }

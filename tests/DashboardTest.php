@@ -1,6 +1,6 @@
 <?php
 
-namespace Vynhart\SlowQueryLog\Tests;
+namespace Mamitech\SlowQueryLog\Tests;
 
 class DashboardTest extends TestCase
 {

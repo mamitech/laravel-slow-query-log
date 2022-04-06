@@ -1,6 +1,6 @@
 <?php
 
-namespace Vynhart\SlowQueryLog;
+namespace Mamitech\SlowQueryLog;
 
 use Illuminate\Database\Connection;
 use Illuminate\Database\Events\QueryExecuted;

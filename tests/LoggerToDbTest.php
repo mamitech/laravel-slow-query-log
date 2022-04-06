@@ -1,12 +1,12 @@
 <?php
 
-namespace Vynhart\SlowQueryLog\Tests;
+namespace Mamitech\SlowQueryLog\Tests;
 
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Vynhart\SlowQueryLog\Logger;
-use Vynhart\SlowQueryLog\Models\SlowQuery;
+use Mamitech\SlowQueryLog\Logger;
+use Mamitech\SlowQueryLog\Models\SlowQuery;
 
 class LoggerToDbTest extends TestCase
 {

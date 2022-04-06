@@ -1,11 +1,11 @@
 <?php
-namespace Vynhart\SlowQueryLog\Controllers;
+namespace Mamitech\SlowQueryLog\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Routing\Controller as BaseController;
-use Vynhart\SlowQueryLog\Logger;
-use Vynhart\SlowQueryLog\LogFile;
-use Vynhart\SlowQueryLog\Models\SlowQuery;
+use Mamitech\SlowQueryLog\Logger;
+use Mamitech\SlowQueryLog\LogFile;
+use Mamitech\SlowQueryLog\Models\SlowQuery;
 
 class DashboardController extends BaseController
 {
