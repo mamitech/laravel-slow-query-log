@@ -4,6 +4,7 @@ namespace Vynhart\SlowQueryLog;
 
 use Carbon\Carbon;
 use Illuminate\Database\Events\QueryExecuted;
+use Illuminate\Support\Facades\Log;
 use Vynhart\SlowQueryLog\Models\SlowQuery;
 
 class Logger
@@ -23,6 +24,10 @@ class Logger
             'traces' => $this->getCallTraces()
         ];
 
+        if ($this->isLogToChannel()) {
+            return $this->logToCustomChannel($data);
+        }
+
         if ($this->isLogToDb()) {
             return $this->logToDb($data);
         }
@@ -33,6 +38,15 @@ class Logger
     private function isBelowThreshold($time)
     {
         return $time < app()->config['slow-query-log.min-threshold'];
+    }
+
+    private function isLogToChannel() {
+        return app()->config['slow-query-log.storage'] === 'log-channel';
+    }
+
+    private function logToCustomChannel($data) {
+        $log = Log::channel(app()->config['slow-query-log.storage.log-channel']);
+        $log->info($data);
     }
 
     private function isLogToDb()
