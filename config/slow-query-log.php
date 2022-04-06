@@ -24,8 +24,8 @@ return [
     # there are three option to store the slow query:
     # 1. file : all slow query log will be recorded in local file
     # 2. database : all slow query log will be recorded to a table in db
-    # 3. channel : custom log handler channel.
-    #      You can specify custom channels in 'channels' value in this config
+    # 3. log-channel : custom log handler channel.
+    #      You can specify custom channels in 'log-channel' value in this config
     'storage' => env('SLOW_QUERY_LOG_STORAGE', 'file'),
 
     'log-channel' => 'logstash'

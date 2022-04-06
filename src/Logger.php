@@ -25,7 +25,7 @@ class Logger
         ];
 
         if ($this->isLogToChannel()) {
-            return $this->logToCustomChannel($data);
+            return $this->logToChannel($data);
         }
 
         if ($this->isLogToDb()) {
@@ -44,7 +44,7 @@ class Logger
         return app()->config['slow-query-log.storage'] === 'log-channel';
     }
 
-    private function logToCustomChannel($data) {
+    private function logToChannel($data) {
         $log = Log::channel(app()->config['slow-query-log.storage.log-channel']);
         $log->info($data);
     }
