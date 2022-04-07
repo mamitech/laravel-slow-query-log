@@ -47,7 +47,16 @@ class Logger
 
     private function logToChannel($data) {
         $log = Log::channel(app()->config['slow-query-log.log-channel']);
+        $data['traces'] = $this->formatTracesToString($data['traces']);
         $log->info(json_encode($data));
+    }
+
+    private function formatTracesToString($traces) {
+        $stringTrace = '';
+        foreach ($traces as $trace) {
+            $stringTrace .= $trace['function'] . "\n\t" . $trace['file'] . $trace['line'] . "\n\n";
+        }
+        return $stringTrace;
     }
 
     private function isLogToDb()
