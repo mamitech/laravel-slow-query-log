@@ -54,7 +54,7 @@ class Logger
     private function formatTracesToString($traces) {
         $stringTrace = '';
         foreach ($traces as $trace) {
-            $stringTrace .= $trace['function'] . "\n\t" . $trace['file'] . $trace['line'] . "\n\n";
+            $stringTrace .= $trace['function'] . "\n\t" . $trace['file'] . ' : ' . $trace['line'] . "\n\n";
         }
         return $stringTrace;
     }
