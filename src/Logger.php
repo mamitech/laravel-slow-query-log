@@ -17,11 +17,16 @@ class Logger
             return;
         }
 
+        $actionName = '';
+        if (!is_null(\Request::route())) {
+            $actionName = \Request::route()->getActionName();
+        }
+
         $data = [
             'time' => $query->time,
             'sql' => $query->sql,
             'path' => \Request::path(),
-            'action' => \Request::route()->getActionName(),
+            'action' => $actionName,
             'traces' => $this->getCallTraces()
         ];
 
