@@ -72,8 +72,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     private function setQueryListener()
     {
         $conn = $this->app->make(Connection::class);
-        $conn->enableQueryLog();
-
         $logger = $this->app->make(Logger::class);
         $conn->listen(function (QueryExecuted $query) use ($logger) {
             $logger->log($query);
