@@ -18,8 +18,14 @@ class Logger
         }
 
         $actionName = '';
+        $type = 'http';
         if (!is_null(\Request::route())) {
             $actionName = \Request::route()->getActionName();
+        }
+
+        if (app()->runningInConsole()) {
+            $type = 'console';
+            $actionName = (new Symfony\Component\Console\Input\ArgvInput)->getFirstArgument();
         }
 
         $data = [
@@ -27,7 +33,8 @@ class Logger
             'sql' => $query->sql,
             'path' => \Request::path(),
             'action' => $actionName,
-            'traces' => $this->getCallTraces()
+            'traces' => $this->getCallTraces(),
+            'type' => $type
         ];
 
         if ($this->isLogToChannel()) {
