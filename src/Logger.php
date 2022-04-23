@@ -25,7 +25,7 @@ class Logger
 
         if (app()->runningInConsole()) {
             $type = 'console';
-            $actionName = (new Symfony\Component\Console\Input\ArgvInput)->getFirstArgument();
+            $actionName = (new \Symfony\Component\Console\Input\ArgvInput)->getFirstArgument();
         }
 
         $data = [
