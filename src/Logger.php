@@ -17,25 +17,7 @@ class Logger
             return;
         }
 
-        $actionName = '';
-        $type = 'http';
-        if (!is_null(\Request::route())) {
-            $actionName = \Request::route()->getActionName();
-        }
-
-        if (app()->runningInConsole()) {
-            $type = 'console';
-            $actionName = (new \Symfony\Component\Console\Input\ArgvInput)->getFirstArgument();
-        }
-
-        $data = [
-            'time' => $query->time,
-            'sql' => $query->sql,
-            'path' => \Request::path(),
-            'action' => $actionName,
-            'traces' => $this->getCallTraces(),
-            'type' => $type
-        ];
+        $data = $this->getData($query);
 
         if ($this->isLogToChannel()) {
             return $this->logToChannel($data);
@@ -46,6 +28,49 @@ class Logger
         }
 
         $this->logToFile($data);
+    }
+
+    private function getData($query) {
+        return [
+            'time' => $query->time,
+            'sql' => $query->sql,
+            'path' => \Request::path(),
+            'action' => $this->getActionName(),
+            'traces' => $this->getCallTraces(),
+            'type' => $this->getType()
+        ];
+    }
+
+    private function getActionName()
+    {
+        $actionName = '';
+        if (!is_null(\Request::route())) {
+            $actionName = \Request::route()->getActionName();
+        }
+
+        if (app()->runningInConsole()) {
+            $actionName = (new \Symfony\Component\Console\Input\ArgvInput)->getFirstArgument();
+        }
+
+        if ($actionName == 'horizon:work' || $actionName == 'tinker') {
+            $traces = $this->getCallTraces();
+            $endTrace = end($traces);
+
+            if ($endTrace) {
+                $actionName = $endTrace['file'];
+            }
+        }
+
+        return $actionName;
+    }
+
+    private function getType()
+    {
+        $type = 'http';
+        if (app()->runningInConsole()) {
+            $type = 'console';
+        }
+        return $type;
     }
 
     private function isBelowThreshold($time)
