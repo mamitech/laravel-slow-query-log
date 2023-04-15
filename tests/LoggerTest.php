@@ -32,12 +32,15 @@ class LoggerTest extends TestCase
         $this->assertStringContainsString($this->query->sql, file_get_contents($this->getFilePath()));
     }
 
-    // /** @test */
+    /** @test */
+    // cannot put this test for now because the test is running in parallel
+    // and the all use the same log files. When this test running,
+    // the log file is cleared so previous test got error
     // public function it_truncates_the_query_when_longer_than_max()
     // {
     //     $this->query->time = 150;
     //     $this->query->sql = $this->longString();
-    //     $this->logger->log($this->query);
+    //     //$this->logger->log($this->query);
 
     //     $lineCount = count(file($this->getFilePath()));
     //     $this->assertEquals(1, $lineCount);

@@ -13,6 +13,24 @@ For example if you want to only keep the trace data of all files within `app/` f
 
 # Run Test
 
+Before running test, make sure you have installed all the dependencies
+by running:
+
+```
+composer install
+```
+
+Then, make sure you have `php-sqlite3` installed in your system
+because use sqlite to run the test.
+
+In debian based system:
+
+```
+sudo apt install php-sqlite3
+```
+
+Now run the test using:
+
 ```
 ./vendor/bin/phpunit
 ```

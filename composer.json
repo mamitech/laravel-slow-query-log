@@ -1,8 +1,8 @@
 {
     "name": "mamitech/laravel-slow-query-log",
     "require": {
-        "php": ">=7.1",
-        "illuminate/support": ">=5.4.0"
+        "php": ">=8.0",
+        "illuminate/support": "^9.0"
     },
     "autoload": {
         "psr-4": {
@@ -24,6 +24,6 @@
     },
     "minimum-stability": "dev",
     "require-dev": {
-        "orchestra/testbench": "5.x-dev"
+        "orchestra/testbench": "7.x-dev"
     }
 }
