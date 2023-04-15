@@ -33,12 +33,23 @@ class Logger
     private function getData($query) {
         return [
             'time' => $query->time,
-            'sql' => $query->sql,
+            'sql' => $this->getSql($query),
             'path' => \Request::path(),
             'action' => $this->getActionName(),
             'traces' => $this->getCallTraces(),
             'type' => $this->getType()
         ];
+    }
+
+    private function getSql($query) {
+        $sql = $query->sql;
+
+        $maxLength = app()->config['slow-query-log.max-sql-length'];
+        if ($maxLength) {
+            $sql = substr($sql, 0, $maxLength);
+        }
+
+        return $sql;
     }
 
     private function getActionName()

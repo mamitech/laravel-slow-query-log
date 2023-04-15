@@ -13,6 +13,9 @@ class LoggerToDbTest extends TestCase
     use DatabaseMigrations;
     use RefreshDatabase;
 
+    protected $query;
+    protected $logger;
+
     /** @test */
     public function it_logs_the_query_when_above_threshold()
     {

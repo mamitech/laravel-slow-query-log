@@ -26,7 +26,14 @@ return [
     # 2. database : all slow query log will be recorded to a table in db
     # 3. log-channel : custom log handler channel.
     #      You can specify custom channels in 'log-channel' value in this config
+    #      the log channel you use must be registered in config/logging.php -> channels
     'storage' => env('SLOW_QUERY_LOG_STORAGE', 'file'),
 
-    'log-channel' => 'logstash'
+    'log-channel' => 'logstash',
+
+    # Specify maximum character length of SQL to be stored in log.
+    # Sometimes when the query gets too long, you might want to truncate
+    #   the string to save up space.
+    # zero (0) means that there is no limitation on sql length.
+    'max-sql-length' => 0
 ];
