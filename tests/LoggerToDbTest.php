@@ -4,14 +4,12 @@ namespace Mamitech\SlowQueryLog\Tests;
 
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mamitech\SlowQueryLog\Logger;
 use Mamitech\SlowQueryLog\Models\SlowQuery;
 
 class LoggerToDbTest extends TestCase
 {
     use DatabaseMigrations;
-    use RefreshDatabase;
 
     protected $query;
     protected $logger;
