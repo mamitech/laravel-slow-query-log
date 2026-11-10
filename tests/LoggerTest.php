@@ -56,8 +56,8 @@ class LoggerTest extends TestCase
         // clean up file
         if (file_exists($this->getFilePath())) {
             unlink($this->getFilePath());
-            touch($this->getFilePath());
         }
+        touch($this->getFilePath());
 
         $this->query = \Mockery::mock(QueryExecuted::class);
         $this->logger = new Logger;
